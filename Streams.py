@@ -7,13 +7,8 @@ async def tcp_OpenProtocolClient(Message, assemblyHeader, MID, loop):
     reader, writer = await asyncio.open_connection('192.168.8.1', 4545,
                                                         loop=loop)
 
-
-    message = Message(assemblyHeader(MID['Communication_start']))
-
-
-
-    print('Send: %r' % message.decode())
-    writer.write(message)
+    print('Send: %r' % Message(assemblyHeader(MID['Communication_start'])).decode())
+    writer.write(Message(assemblyHeader(MID['Communication_start'])))
 
     data = await reader.read(1000)
     print('Received: %r' % data.decode())
