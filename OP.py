@@ -1,5 +1,5 @@
 #******************Structure message**********************************
-# Header(20byte)|Data Field(variable)|Message End(0 byte)
+# |Header(20byte)|Data Field(variable)|Message End(0 byte)
 #********HEADER***********************
 """Length(1-4 byte) - The length is the length of the header plus the data field excluding the NUL termination.
                         The header always includes information about the length
@@ -56,7 +56,7 @@ MID = { 'Communication_start': '0001',
         'Select_Parameter_set': '0018',
         'Set_Parameter_set_batch_size': '0019',
         'Reset_Parameter_set_batch_counter': '0020',
-        'Lock_at_batch_done_subscribe': b'0021',
+        'Lock_at_batch_done_subscribe': '0021',
         'Lock_at_batch_done_upload': '0022',
         'Lock_at_batch_done_upload_acknowledge': '0023',
         'Lock_at_batch_done_unsubscribe': '0024',
@@ -108,7 +108,11 @@ def assemblyHeader(arg_mid, arg_rev='001', arg_no_ack_flag=' ', arg_station_id='
 def Message(arg_header, arg_data_field='', arg_mess_end='0'):
     count = len(arg_header) + 4 + len(arg_data_field)
     s = str(count)
-    length = '00' + bytes(s, encoding = 'utf-8')
+    length = '00' + s
     return length + arg_header + arg_data_field + arg_mess_end
+
+
+
+
 
 
