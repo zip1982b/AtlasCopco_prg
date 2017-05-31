@@ -2,8 +2,12 @@ import asyncio
 from assemblyMessage_v2 import message, assembly_header, MID
 
 async def tcp_open_protocol_client(assembly_header, MID, loop):
-    reader, writer = await asyncio.open_connection('192.168.8.1', 4545, loop=loop)  # необходимо добавить код в случае возникновения исключения
+    try:
+        reader, writer = await asyncio.open_connection('192.168.8.1', 4545, loop=loop)  # необходимо добавить код в случае возникновения исключения
                                                                                     # необходимо добавить - IP передавать в качестве аргумента
+    except(TimeoutError):
+        print('exit')
+
     count = 0;
 
     print('Send: %r' % message(assembly_header(MID['Communication_start'])))
